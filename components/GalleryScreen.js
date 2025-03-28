@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet } from 'react-native';
+import {View, Image, StyleSheet, ScrollView} from 'react-native';
 import { useEffect, useState } from 'react';
 
 export function GalleryScreen() {
@@ -26,7 +26,7 @@ export function GalleryScreen() {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             {row(news, 2).map((row, rowIndex) => (
                 <View key={rowIndex} style={styles.row}>
                     {row.map((item, index) => (
@@ -34,7 +34,7 @@ export function GalleryScreen() {
                     ))}
                 </View>
             ))}
-        </View>
+        </ScrollView>
     );
 }
 

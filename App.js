@@ -12,7 +12,7 @@ export default function App() {
 
         <NavTab/>
 
-        <View style={styles.footer}><Text>Павлусенко Олександр ІПЗ-23-2</Text></View>
+        <View style={styles.footer}><Text>Павлусенко Олександр Володимирович, ІПЗ-23-2</Text></View>
       </NavigationContainer>
   );
 }
