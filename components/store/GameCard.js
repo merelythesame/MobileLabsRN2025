@@ -1,70 +1,98 @@
 import React from 'react';
+import {Text} from 'react-native';
 import styled from 'styled-components/native';
+import WindowsIcon from '../../assets/icons/windows.svg'
+import MacIcon from '../../assets/icons/mac.svg'
 
 const Card = styled.View`
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    height: fit-content;
 `;
 
 const GameImage = styled.Image`
-  width: 60px;
-  height: 60px;
-  border-radius: 8px;
+    width: 72px;
+    height: 50px;
+    border-radius: 8px;
 `;
 
 const Info = styled.View`
-  margin-left: 10px;
-  flex: 1;
+    margin-left: 10px;
+    flex: 1;
+    gap: 7px;
 `;
 
 const Title = styled.Text`
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -0.32px;
 `;
 
-const Platform = styled.Text`
-  color: gray;
-  font-size: 12px;
+const PlatformRow = styled.View`
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+`;
+
+const PlatformText = styled.Text`
+    color: gray;
+    font-size: 12px;
 `;
 
 const PriceContainer = styled.View`
-  align-items: flex-end;
+    align-items: flex-end;
+    font-size: 18px;
 `;
 
 const OldPrice = styled.Text`
-  text-decoration: line-through;
-  color: gray;
+    text-decoration: line-through;
+    color: gray;
+    font-size: 12px;
 `;
 
 const NewPrice = styled.Text`
-  color: #00ff99;
+    color: white;
+`;
+
+const OldNewPriceRow = styled.View`
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
 `;
 
 const Discount = styled.Text`
-  background-color: green;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  margin-top: 2px;
+    background-color: #00D44B80;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-top: 2px;
 `;
 
-export default function GameCard({ image, title, platform, price, oldPrice }) {
+export default function GameCard({ image, title, platform=[], price, oldPrice }) {
     return (
         <Card>
             <GameImage source={image} />
             <Info>
                 <Title>{title}</Title>
-                <Platform>{platform}</Platform>
+                <PlatformRow>
+                    {platform.includes('Windows') && <WindowsIcon/>}
+                    {platform.includes('Mac') && <MacIcon />}
+                    {platform.includes('Windows') && <PlatformText>{platform[0]}</PlatformText>}
+                    {platform.includes('Mac') && <PlatformText>{platform[1]}</PlatformText>}
+                </PlatformRow>
             </Info>
             <PriceContainer>
-                {oldPrice && <OldPrice>{oldPrice}</OldPrice>}
-                <NewPrice>{price}</NewPrice>
+                <OldNewPriceRow>
+                    {oldPrice && <OldPrice>${oldPrice}</OldPrice>}
+                    <NewPrice>${price}</NewPrice>
+                </OldNewPriceRow>
                 {oldPrice && (
                     <Discount>
-                        -{Math.round((1 - parseFloat(price.slice(1)) / parseFloat(oldPrice.slice(1))) * 100)}%
+                        -{Math.round((1-price / oldPrice) * 100)}%
                     </Discount>
                 )}
             </PriceContainer>
