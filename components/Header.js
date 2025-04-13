@@ -1,10 +1,9 @@
 import {TouchableOpacity} from "react-native";
-import SteamIcon from "../../assets/icons/steam.svg";
-import SearchIcon from "../../assets/icons/searchIcon.svg";
+import SteamIcon from "../assets/icons/steam.svg";
+import SearchIcon from "../assets/icons/searchIcon.svg";
 import styled from "styled-components/native";
 
 const HeaderContainer = styled.View`
-    margin-bottom: 20px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -14,10 +13,12 @@ const HeaderContainer = styled.View`
 
 const HeaderTitle = styled.Text`
     color: white;
+    font-family: ABeeZee;
     font-weight: 400;
     font-size: 28px;
     line-height: 39px;
     letter-spacing: -0.48px;
+
 
 `;
 

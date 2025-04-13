@@ -30,3 +30,24 @@ export const games = [
         image: require('../assets/games/horizon.png'),
     },
 ];
+
+export const bannerData = [
+    {
+        id: '1',
+        image: require('../assets/games/deadbydaylight.png'),
+        title: 'Dead by Daylight',
+        subtitle: 'Recommended by your friend, Player',
+        oldPrice: '18',
+        price: '5',
+        platform: ['Windows'],
+    },
+    {
+        id: '2',
+        image: require('../assets/games/rdr.jpg'),
+        title: 'Red Dead Redemption',
+        subtitle: 'Based on your recent activity',
+        oldPrice: '20',
+        price: '10',
+        platform: ['Windows'],
+    },
+];
