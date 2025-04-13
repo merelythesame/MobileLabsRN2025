@@ -7,7 +7,7 @@ import MacIcon from '../../assets/icons/mac.svg'
 const Card = styled.View`
     flex-direction: row;
     align-items: center;
-    padding: 10px;
+    padding: 10px 0;
     height: fit-content;
 `;
 

@@ -4,8 +4,11 @@ import styled from 'styled-components/native';
 import WindowsIcon from '../../assets/icons/windows.svg'
 import MacIcon from '../../assets/icons/mac.svg'
 
-const Banner = styled.ImageBackground`
+const Banner = styled.ImageBackground.attrs({
+    resizeMode: 'cover',
+})`
     height: 230px;
+    width: 327px;
     border-radius: 12px;
     overflow: hidden;
     justify-content: flex-end;
@@ -79,7 +82,7 @@ export default function HeaderBanner({ image, title, subtitle, oldPrice, price, 
             <Subtitle>{subtitle}</Subtitle>
             <InfoRow>
                 <PriceRow>
-                    {price && <DiscountTag><Text style={{ color: "white"}}>-{Math.round((1-price / oldPrice) * 100)}%</Text></DiscountTag>}
+                    {oldPrice && <DiscountTag><Text style={{ color: "white"}}>-{Math.round((1-price / oldPrice) * 100)}%</Text></DiscountTag>}
                     <PricesContainer>
                         ${oldPrice && <OldPrice>{oldPrice}$</OldPrice>}
                         <PriceTag>${price}</PriceTag>

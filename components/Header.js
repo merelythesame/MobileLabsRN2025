@@ -4,7 +4,6 @@ import SearchIcon from "../../assets/icons/searchIcon.svg";
 import styled from "styled-components/native";
 
 const HeaderContainer = styled.View`
-    margin-top: 35px;
     margin-bottom: 20px;
     flex-direction: row;
     align-items: center;
@@ -22,12 +21,12 @@ const HeaderTitle = styled.Text`
 
 `;
 
-export default function Header({ hasSearchButton = true }) {
+export default function Header({ title, hasSearchButton = true }) {
     return (
         <HeaderContainer>
             <TouchableOpacity style={{ flexDirection: "row", gap: 6, alignItems: "flex-end" }}>
                 <SteamIcon />
-                <HeaderTitle>Store</HeaderTitle>
+                <HeaderTitle>{title}</HeaderTitle>
             </TouchableOpacity>
 
             {hasSearchButton && (

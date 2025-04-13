@@ -12,6 +12,7 @@ import ChatIcon from '../../assets/icons/path.svg';
 import SafetyIcon from '../../assets/icons/shield.svg';
 import {currentUser} from "../../data/currentUser";
 import styled from "styled-components";
+import {StatusBar} from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -53,6 +54,7 @@ const screenOptions = ({ route }) => ({
 export default function NavigationComponent() {
     return (
         <NavigationContainer>
+            <StatusBar backgroundColor="#1C202C" barStyle="light-content" />
             <Tab.Navigator screenOptions={screenOptions}>
                 <Tab.Screen name="Store" component={StoreScreen} />
                 <Tab.Screen name="Community" component={CommunityScreen} />
