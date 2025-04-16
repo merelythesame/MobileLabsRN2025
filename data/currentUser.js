@@ -1,6 +1,7 @@
 export const currentUser = {
     firstName: 'Oleksandr',
     lastName: 'Pavlusenko',
+    group: 'IPZ-23-2',
     image: require('../assets/users/UserImage.png'),
 };
 export const messages= [
