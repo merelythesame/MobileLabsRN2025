@@ -1,13 +1,13 @@
 import React from 'react';
 import {Text} from "react-native";
-import styled from 'styled-components/native';
+import styled, {useTheme} from 'styled-components/native';
 import UserAvatar from '../UserAvatar';
 
 const Container = styled.View`
-  flex-direction: row;
-  padding: 12px;
-  align-items: center;
-  background-color: #1C202C;
+    flex-direction: row;
+    padding: 12px;
+    align-items: center;
+    background-color: ${(props) => props.theme.background};
 `;
 
 const TextContainer = styled.View`
@@ -16,7 +16,7 @@ const TextContainer = styled.View`
 `;
 
 const Name = styled.Text`
-    color: #FFFFFF;
+    color: ${(props) => props.theme.headers};
     font-size: 16px;
     font-weight: 600;
     font-family: ABeeZee;
@@ -36,42 +36,43 @@ const Message = styled.Text`
 `;
 
 const IndicatorContainer = styled.View`
-  margin-left: 8px;
-  align-items: center;
-  justify-content: center;
+    margin-left: 8px;
+    align-items: center;
+    justify-content: center;
 `;
 
 const Dot = styled.View`
-  width: 10px;
-  height: 10px;
-  background-color: #FFFFFF;
-  border-radius: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: ${(props) => props.theme.unReadDot};
+    border-radius: 5px;
 `;
 
 const UnreadBadge = styled.View`
-  background-color: #4A90E2;
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  align-items: center;
-  justify-content: center;
+    background-color: #4A90E2;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
 `;
 
 const UnreadText = styled.Text`
-  color: #FFFFFF;
-  font-size: 12px;
-  font-weight: 600;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
 `;
 
 
 export default function UserMessage({ name, avatar, lastMessage, date, unread, status, sentByUser }){
+    const theme = useTheme()
     return (
         <Container>
             <UserAvatar avatar={avatar} status={status} />
             <TextContainer>
                 <Name>{name}</Name>
                 <Message numberOfLines={1}>
-                    <Text style={{ color: 'white'}}>{sentByUser ? 'You: ' : ''}</Text>
+                    <Text style={{ color: theme.headers}}>{sentByUser ? 'You: ' : ''}</Text>
                     {lastMessage} • {date}
                 </Message>
             </TextContainer>

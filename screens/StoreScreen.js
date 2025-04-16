@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
-import {FlatList, SafeAreaView, View} from 'react-native';
-import styled from 'styled-components/native';
+import { FlatList, SafeAreaView, View } from 'react-native';
+import { useTheme } from 'styled-components/native';
 import GameCard from '../components/store/GameCard';
-import CategoryTab from '../components/CategoryTab';
 import HeaderBanner from '../components/store/HeaderBanner';
-import Header from "../components/Header";
-import {games, bannerData} from "../data/games";
-
-
-
-const CategoryRow = styled.View`
-  flex-direction: row;
-  margin: 30px 0 20px 0;
-`;
+import Header from '../components/Header';
+import { games, bannerData } from '../data/games';
+import { storeCategories } from '../data/categories';
+import CategoryRow from '../components/CategoryRow';
 
 export default function StoreScreen() {
     const [selected, setSelected] = useState('Top Sellers');
+    const theme = useTheme();
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#1C202C', paddingHorizontal: 20 }}>
-                <View style={{gap: 25}}>
-                    <Header title="Store"/>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.background }}>
+            <View style={{ flex: 0.9, paddingHorizontal: 20 }}>
+                <View style={{ gap: 25 }}>
+                    <Header title="Store" />
                     <FlatList
                         data={bannerData}
                         keyExtractor={(item) => item.id}
@@ -37,26 +33,25 @@ export default function StoreScreen() {
                             />
                         )}
                         ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
+                        contentContainerStyle={{ paddingBottom: 30 }}
                     />
                 </View>
 
-                <CategoryRow>
-                    {['Top Sellers', 'Free to play', 'Early Access'].map((label) => (
-                        <CategoryTab
-                            key={label}
-                            label={label}
-                            active={selected === label}
-                            onPress={() => setSelected(label)}
-                        />
-                    ))}
-                </CategoryRow>
+                <CategoryRow
+                    categories={storeCategories}
+                    selected={selected}
+                    onSelect={setSelected}
+                    hasSearch={false}
+                />
 
                 <FlatList
                     data={games}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => <GameCard {...item} />}
                     showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 30 }}
                 />
+            </View>
         </SafeAreaView>
     );
 }

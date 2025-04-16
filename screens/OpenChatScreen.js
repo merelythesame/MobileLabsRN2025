@@ -1,9 +1,11 @@
 import {FlatList, SafeAreaView, TouchableOpacity, View} from "react-native";
 import {messages} from "../data/currentUser";
 import UserMessage from "../components/chat/UserMessage";
+import {useTheme} from "styled-components/native";
 export default function OpenChatScreen(){
+    const theme = useTheme()
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#1C202C' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
             <FlatList
                 data={messages}
                 keyExtractor={(item) => item.id}

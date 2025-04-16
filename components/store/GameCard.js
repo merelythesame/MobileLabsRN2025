@@ -24,7 +24,7 @@ const Info = styled.View`
 `;
 
 const Title = styled.Text`
-    color: white;
+    color: ${(props) => props.theme.headers};
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
@@ -54,7 +54,7 @@ const OldPrice = styled.Text`
 `;
 
 const NewPrice = styled.Text`
-    color: white;
+    color: ${(props) => props.theme.headers};
 `;
 
 const OldNewPriceRow = styled.View`
@@ -65,7 +65,7 @@ const OldNewPriceRow = styled.View`
 
 const Discount = styled.Text`
     background-color: #00D44B80;
-    color: white;
+    color: ${(props) => props.theme.discount};
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 12px;

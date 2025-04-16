@@ -5,7 +5,7 @@ import NextIcon from '../assets/icons/next.svg'
 
 const Container = styled.SafeAreaView`
     flex: 1;
-    background-color: #1c202c;
+    background-color: ${(props) => props.theme.background};
     align-items: center;
     gap: 24px;
 `;
@@ -69,7 +69,7 @@ const InfoBlock = styled.View`
 `;
 
 const InfoText = styled.Text`
-    color: white;
+    color: ${(props) => props.theme.headers};
     font-family: ABeeZee;
     font-weight: 400;
     font-size: 14px;

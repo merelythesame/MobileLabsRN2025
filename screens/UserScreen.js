@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import { useTheme } from 'styled-components/native';
+import {SafeAreaView, View} from 'react-native';
 import {currentUser} from "../data/currentUser";
 import UserAvatar from "../components/UserAvatar";
 import NextIcon from "../assets/icons/next.svg";
@@ -41,13 +41,14 @@ const Info = styled.Text`
     font-size: 16px;
     line-height: 22px;
     letter-spacing: -0.18px;
-    color: white;
+    color: ${(props) => props.theme.headers};
 `;
 
 
-export default function UserScreen(){
+export default function UserScreen({toggleTheme}){
+    const theme = useTheme();
     return(
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#1C202C', padding: 20, alignItems: 'center', gap: 20}}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme.background, padding: 20, alignItems: 'center', gap: 20}}>
             <View style={{alignItems: 'center', gap: 6}}>
                 <UserAvatar avatar={currentUser.image} status={'online'} size={98}/>
                 <Info >{currentUser.firstName} {currentUser.lastName}</Info>
@@ -56,11 +57,11 @@ export default function UserScreen(){
 
             <NavWrapper>
                 <NavButtons>
-                    <Button>
+                    <Button onPress={toggleTheme}>
                         <ButtonText>Change theme</ButtonText>
                         <NextIcon />
                     </Button>
-                    <Button style={{ borderBottomWidth: 0 }}>
+                    <Button style={{ borderBottomWidth: 0 }} >
                         <ButtonText>Logout</ButtonText>
                         <NextIcon />
                     </Button>

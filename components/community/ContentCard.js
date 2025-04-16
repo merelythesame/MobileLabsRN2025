@@ -8,8 +8,8 @@ import {formatTimestamp} from "../../utils/formatTimeStamp";
 import MoreIcon from "../../assets/icons/more.svg"
 
 const CardContainer = styled.View`
-  background-color: #1C202C;
-  padding: 16px;
+    background-color: ${(props) => props.theme.background};
+    padding: 16px;
 `;
 
 const HeaderRow = styled.View`
@@ -32,7 +32,7 @@ const PublisherIcon = styled.Image`
 `;
 
 const PublisherText = styled.Text`
-    color: white;
+    color: ${(props) => props.theme.headers};
     margin-right: 8px;
     font-family: ABeeZee;
     font-weight: 400;
@@ -43,11 +43,11 @@ const PublisherText = styled.Text`
 `;
 
 const NewsBadge = styled.Text`
-  background-color: #b44cff;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 10px;
+    background-color: #b44cff;
+    color: ${(props) => props.theme.headers};
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
 `;
 
 const PostMeta = styled.Text`
@@ -61,14 +61,14 @@ const PostMeta = styled.Text`
 `;
 
 const ContentImage = styled.Image`
-  width: 100%;
-  height: 190px;
-  border-radius: 10px;
-  margin-bottom: 12px;
+    width: 100%;
+    height: 190px;
+    border-radius: 10px;
+    margin-bottom: 12px;
 `;
 
 const Title = styled.Text`
-    color: white;
+    color: ${(props) => props.theme.headers};
     margin-bottom: 8px;
     font-family: ABeeZee;
     font-weight: 400;
@@ -79,7 +79,7 @@ const Title = styled.Text`
 `;
 
 const Subtitle = styled.View`
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 `;
 
 const SubtitleText = styled.Text`
@@ -93,15 +93,15 @@ const SubtitleText = styled.Text`
 `;
 
 const ActionRow = styled.View`
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
 `;
 
 const Action = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
 `;
 
 const ActionText = styled.Text`
