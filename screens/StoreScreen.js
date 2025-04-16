@@ -7,10 +7,7 @@ import HeaderBanner from '../components/store/HeaderBanner';
 import Header from "../components/Header";
 import {games, bannerData} from "../data/games";
 
-const Container = styled.View`
-  background-color: #1C202C;
-  padding: 20px;
-`;
+
 
 const CategoryRow = styled.View`
   flex-direction: row;
@@ -21,8 +18,7 @@ export default function StoreScreen() {
     const [selected, setSelected] = useState('Top Sellers');
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#1C202C' }}>
-            <Container>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#1C202C', paddingHorizontal: 20 }}>
                 <View style={{gap: 25}}>
                     <Header title="Store"/>
                     <FlatList
@@ -61,7 +57,6 @@ export default function StoreScreen() {
                     renderItem={({ item }) => <GameCard {...item} />}
                     showsVerticalScrollIndicator={false}
                 />
-            </Container>
         </SafeAreaView>
     );
 }
