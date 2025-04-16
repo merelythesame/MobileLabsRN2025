@@ -14,7 +14,7 @@ export default function ChatScreen(){
             <View style={{paddingLeft: 20, paddingRight: 20}}>
                 <Header title="Chat" hasSearchButton={true}/>
             </View>
-            <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+            <Tab.Navigator tabBar={props => <CustomTabBar {...props} tabLabels={{Chats: 'Chats', Friends: 'My Friends'}} />}>
                 <Tab.Screen name="Chats" component={OpenChatsScreen} />
                 <Tab.Screen name="Friends" component={MyFriendsScreen} />
             </Tab.Navigator>

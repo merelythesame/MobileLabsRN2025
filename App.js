@@ -5,6 +5,7 @@ export default function App() {
     const [fontsLoaded] = Font.useFonts({
         ABeeZee: require('./assets/fonts/ABeeZee-Regular.ttf'),
         PingFang: require('./assets/fonts/PingFang-SC-Regular.ttf'),
+        Gilroy: require('./assets/fonts/Gilroy-ExtraBold.otf'),
     });
 
     return (

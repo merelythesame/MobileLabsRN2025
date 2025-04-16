@@ -1,9 +1,9 @@
 import {SafeAreaView, Text} from "react-native";
 
-export default function MyFriendsScreen(){
+export default function ConfirmationScreen(){
     return(
         <SafeAreaView style={{ flex: 1, backgroundColor: '#1C202C' }}>
-            <Text style={{ color: 'white'}}>MyFriends Screen</Text>
+            <Text style={{ color: 'white'}}>Confirmation Screen </Text>
         </SafeAreaView>
     );
 }

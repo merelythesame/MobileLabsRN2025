@@ -9,7 +9,7 @@ const BarContainer = styled.View`
     margin: 16px;
 `;
 
-export default function CustomTabBar({ state, descriptors, navigation }) {
+export default function CustomTabBar({ state, descriptors, navigation, tabLabels = {} }) {
     return (
         <BarContainer>
             {state.routes.map((route, index) => {
@@ -21,6 +21,8 @@ export default function CustomTabBar({ state, descriptors, navigation }) {
                     }
                 };
 
+                const label = tabLabels[route.name] || route.name;
+
                 return (
                     <TouchableOpacity
                         key={route.key}
@@ -30,12 +32,11 @@ export default function CustomTabBar({ state, descriptors, navigation }) {
                             backgroundColor: isFocused ? '#1C202C' : 'transparent',
                             borderRadius: 12,
                             alignItems: 'center',
-                            height: 'fit-content',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
                         }}
                     >
-                        <Text style={{ color: isFocused ? '#fff' : '#7a7f8c',  fontFamily: 'PingFang', fontSize: 14, padding: 8}}>
-                            {route.name === 'Chats' ? 'Open chats' : 'My friends'}
+                        <Text style={{ color: isFocused ? '#fff' : '#7a7f8c', fontFamily: 'PingFang', fontSize: 14, padding: 8 }}>
+                            {label}
                         </Text>
                     </TouchableOpacity>
                 );
