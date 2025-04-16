@@ -29,7 +29,7 @@ const HeroSection = styled.View`
 export default function CommunityScreen(){
     const [selected, setSelected] = useState('All');
     return(
-        <SafeAreaView style={{ flex: 1, gap: 8, backgroundColor: '#171A24' }}>
+        <SafeAreaView style={{ flex: 1, gap: 8, backgroundColor: '#1C202C' }}>
             <Container>
                 <HeroSection>
                     <View style={{gap: "6"}}>
