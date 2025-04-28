@@ -2,25 +2,45 @@ import React, { useState } from 'react';
 import { StyleSheet, Animated, Text } from 'react-native';
 import {TapGestureHandler, LongPressGestureHandler, PanGestureHandler, FlingGestureHandler, PinchGestureHandler, Directions} from 'react-native-gesture-handler';
 
-export default function ClickableObject({ onScore }) {
+export default function ClickableObject({ onScore = () => {}, onCompleteTask = () => {} }) {
     const [scale, setScale] = useState(new Animated.Value(1));
     const [position, setPosition] = useState(new Animated.ValueXY({ x: 0, y: 0 }));
 
+    const [tapCount, setTapCount] = useState(0);
+    const [doubleTapCount, setDoubleTapCount] = useState(0);
+    const [totalScore, setTotalScore] = useState(0);
+
     const handleTap = () => {
-        onScore(1);
+        const newCount = tapCount + 1;
+        setTapCount(newCount);
+        if (newCount >= 10) {
+            onCompleteTask('tap10');
+        }
+        addScore(1);
     };
 
     const handleDoubleTap = () => {
-        onScore(2);
+        const newCount = doubleTapCount + 1;
+        setDoubleTapCount(newCount);
+        if (newCount >= 5) {
+            onCompleteTask('doubleTap5');
+        }
+        addScore(2);
     };
 
     const handleLongPress = () => {
-        onScore(5);
+        onCompleteTask('longPress');
+        addScore(5);
     };
 
     const handleFling = (direction) => {
+        if (direction === 'right') {
+            onCompleteTask('flingRight');
+        } else if (direction === 'left') {
+            onCompleteTask('flingLeft');
+        }
         const points = Math.floor(Math.random() * 10) + 1;
-        onScore(points);
+        addScore(points);
     };
 
     const handlePan = Animated.event(
@@ -33,8 +53,17 @@ export default function ClickableObject({ onScore }) {
         { useNativeDriver: false }
     );
 
+    const addScore = (points) => {
+        const newScore = totalScore + points;
+        setTotalScore(newScore);
+        onScore(points);
+        if (newScore >= 100) {
+            onCompleteTask('score100');
+        }
+    };
+
     return (
-        <PanGestureHandler onGestureEvent={handlePan}>
+        <PanGestureHandler onGestureEvent={handlePan} onHandlerStateChange={() => onCompleteTask('pan')}>
             <PinchGestureHandler onGestureEvent={handlePinch}>
                 <FlingGestureHandler direction={Directions.RIGHT} onActivated={() => handleFling('right')}>
                     <FlingGestureHandler direction={Directions.LEFT} onActivated={() => handleFling('left')}>
@@ -68,12 +97,11 @@ const styles = StyleSheet.create({
         height: 100,
         backgroundColor: 'red',
         borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-
-    title:{
-        marginTop: 40,
-        marginLeft: 10,
-        fontWeight: "bold",
-        color: "white"
+    title: {
+        color: 'white',
+        fontWeight: 'bold',
     }
 });
