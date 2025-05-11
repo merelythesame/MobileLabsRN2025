@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Modal,
-    View,
-    Text,
-    TextInput,
-    Button,
-    StyleSheet,
-} from 'react-native';
+import {Modal, View, Text, TextInput, Button, StyleSheet} from 'react-native';
 
 export default function CreateItem({ visible, type, onCreate, onCancel }) {
     const [name, setName] = useState('');
@@ -78,7 +71,7 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: 'lightgrey',
         borderRadius: 4,
         padding: 8,
         marginBottom: 12,
