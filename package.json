@@ -10,8 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^8.3.0",
     "react": "19.0.0",
-    "react-native": "0.79.1"
+    "react-native": "0.79.1",
+    "react-native-config": "^1.5.5",
+    "react-native-onesignal": "^5.2.9"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
