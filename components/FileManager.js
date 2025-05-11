@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, Button } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import CreateItemModal from './CreateItem';
+import TextFileViewer from './TextFileViewer';
+import RenderItem from './RenderItem';
 
 const ROOT_DIR = FileSystem.documentDirectory + 'AppData/';
 
@@ -10,6 +12,9 @@ export default function FileManager() {
     const [items, setItems] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalType, setModalType] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [storageStats, setStorageStats] = useState(null);
+    const [showStats, setShowStats] = useState(false);
 
     useEffect(() => {
         const init = async () => {
@@ -37,7 +42,6 @@ export default function FileManager() {
         setModalVisible(false);
     };
 
-
     const readDirectory = async (path) => {
         try {
             const dirItems = await FileSystem.readDirectoryAsync(path);
@@ -49,7 +53,7 @@ export default function FileManager() {
             );
             setItems(detailedItems);
         } catch (error) {
-            Alert.alert('Error reading directory', error.message);
+            Alert.alert('Помилка читання директорії', error.message);
         }
     };
 
@@ -57,6 +61,8 @@ export default function FileManager() {
         if (item.isDirectory) {
             setCurrentPath(item.path);
             readDirectory(item.path);
+        } else if (item.name.endsWith('.txt')) {
+            setSelectedFile(item.path);
         }
     };
 
@@ -74,12 +80,36 @@ export default function FileManager() {
         }
     };
 
+    const handleSaveFile = async (path, content) => {
+        try {
+            await FileSystem.writeAsStringAsync(path, content);
+            Alert.alert('Збережено', 'Файл успішно збережено.');
+            setSelectedFile(null);
+        } catch (error) {
+            Alert.alert('Помилка збереження', error.message);
+        }
+    };
 
-    const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.item} onPress={() => navigateTo(item)}>
-            <Text style={{ fontWeight: item.isDirectory ? 'bold' : 'normal' }}>{item.name}</Text>
-        </TouchableOpacity>
-    );
+    const toggleStorageStats = async () => {
+        if (showStats) {
+            setShowStats(false);
+            return;
+        }
+        try {
+            const total = await FileSystem.getTotalDiskCapacityAsync();
+            const free = await FileSystem.getFreeDiskStorageAsync();
+            const used = total - free;
+            setStorageStats({
+                total: (total / (1024 * 1024)).toFixed(2),
+                free: (free / (1024 * 1024)).toFixed(2),
+                used: (used / (1024 * 1024)).toFixed(2),
+            });
+            setShowStats(true);
+        } catch (error) {
+            Alert.alert('Помилка', 'Не вдалося отримати статистику памʼяті.');
+        }
+    };
+
 
     return (
         <View style={styles.container}>
@@ -92,7 +122,14 @@ export default function FileManager() {
             <FlatList
                 data={items}
                 keyExtractor={(item) => item.path}
-                renderItem={renderItem}
+                renderItem={({ item }) => (
+                    <RenderItem
+                        item={item}
+                        navigateTo={navigateTo}
+                        readDirectory={readDirectory}
+                        currentPath={currentPath}
+                    />
+                )}
                 contentContainerStyle={styles.list}
             />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
@@ -107,15 +144,37 @@ export default function FileManager() {
                 onCancel={() => setModalVisible(false)}
             />
 
+            {selectedFile && (
+                <TextFileViewer
+                    filePath={selectedFile}
+                    onClose={() => setSelectedFile(null)}
+                    onSave={handleSaveFile}
+                />
+            )}
+
+            <Button title={showStats ? 'Сховати статистику' : 'Статистика памʼяті'} onPress={toggleStorageStats} />
+
+            {showStats && storageStats && (
+                <View style={styles.statsBox}>
+                    <Text>Загальна памʼять: {storageStats.total} MB</Text>
+                    <Text>Вільно: {storageStats.free} MB</Text>
+                    <Text>Зайнято: {storageStats.used} MB</Text>
+                </View>
+            )}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 16, backgroundColor: '#fff' },
+    container: { flex: 1, padding: 16 },
     path: { fontSize: 16, marginBottom: 8 },
     list: { paddingBottom: 100 },
-    item: { padding: 12, borderBottomWidth: 1, borderColor: '#ccc', height: "auto" },
     goUp: { marginBottom: 12 },
     goUpText: { color: 'blue', fontSize: 16 },
+    statsBox: {
+        marginVertical: 10,
+        padding: 10,
+        backgroundColor: 'lightgrey',
+        borderRadius: 8,
+    },
 });
