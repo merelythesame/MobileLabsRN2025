@@ -3,10 +3,12 @@ import { View, Text, Button, FlatList, Image, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
 import { setProducts } from '../redux/slices/productsSlice';
+import Tomato from '../assets/tomato.png';
+import Apple from '../assets/apple.png';
 
 const productsData = [
-    { id: '1', name: 'Tomato', description: 'Fresh tomato just from land', price: 100, image: '../assets/tomato.png' },
-    { id: '2', name: 'Apple', description: 'Apple from the tree', price: 200, image: '../assets/apple.png' },
+    { id: '1', name: 'Tomato', description: 'Fresh tomato just from land', price: 100, image: Tomato },
+    { id: '2', name: 'Apple', description: 'Apple from the tree', price: 200, image: Apple },
 ];
 
 export default function ProductListScreen({ navigation }) {
@@ -20,12 +22,13 @@ export default function ProductListScreen({ navigation }) {
     return (
         <View>
             <Button title="Go to Cart" onPress={() => navigation.navigate('Cart')} />
+            <Button title="Order History" onPress={() => navigation.navigate('Orders')} />
             <FlatList
                 data={products}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <View style={styles.item}>
-                        <Image source={{ uri: item.image }} style={styles.image} />
+                        <Image source={ item.image } style={styles.image} />
                         <Text>{item.name}</Text>
                         <Text>{item.description}</Text>
                         <Text>${item.price}</Text>
